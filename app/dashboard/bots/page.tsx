@@ -1,0 +1,1 @@
+// Bots page for dashboard
