@@ -1,4 +1,6 @@
-import { NextRequest } from 'next/server'
+import { NextRequest } from "next/server";
+import { createServerClient } from "@supabase/ssr";
+import { cookies } from "next/headers";
 
 export async function GET(req: NextRequest) {
     const code = req.nextUrl.searchParams.get('code');
@@ -18,8 +20,22 @@ export async function GET(req: NextRequest) {
 
     const data = await res.json();
     const accessToken = data.access_token;
+
+    const supabase = createServerClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.SUPABASE_SERVICE_ROLE_KEY!,
+        { cookies }
+    );
+
+    const {
+        data: { user },
+    } = await supabase.auth.getUser();
     
-    //TODO: Store accessToken in Supabase or session
+    if (user?.id && accessToken) {
+        await supabase
+            .from("github_tokens")
+            .upsert({ id: user.id, accessToken }, { onConflict: "id" });
+    }
     console.log('GitHub access token:', accessToken?.slice(0, 6) + '...');
 
     return new Response('✅ GitHub connected! You may now return to your dashboard.',  {
