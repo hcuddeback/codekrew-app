@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import { createServerClient } from "@supabase/ssr";
+import { createClient } from '@/app/lib/supabase/server';
 import { cookies } from "next/headers";
 
 export async function GET(req: NextRequest) {
@@ -24,7 +24,13 @@ export async function GET(req: NextRequest) {
     const supabase = createServerClient(
         process.env.NEXT_PUBLIC_SUPABASE_URL!,
         process.env.SUPABASE_SERVICE_ROLE_KEY!,
-        { cookies }
+        {       
+            cookies: {
+                get(name: string) {
+                    return cookies().get(name)?.value
+                },
+          }, 
+        }
     );
 
     const {

@@ -1,19 +1,36 @@
+import { createServerComponentClient } from "@supabase/ssr";
 import { createClient } from "@supabase/supabase-js";
 import { Octokit } from "octokit";
+import { cookies } from "next/headers";
 
 const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
-export async function getUserGitHubToken(userId: string) {
-    const { data } = await supabase
-        .from("github_tokens")
-        .select("access_tokens")
-        .eq("id", userId)
-        .single();
+export async function getUserGitHubToken() {
+    const supabase = createServerComponentClient({ cookies });
 
-    return data?.access_tokens;
+    const {
+        data: { user },
+        error: userError,
+    } = await supabase.auth.getUser();
+    
+    if (userError || !user) {
+        throw new Error("User not authenticated.");
+    }
+    
+    const { data, error } = await supabase
+        .from("github_tokens")
+        .select("access_token")
+        .eq("id", user.id)
+        .single();
+    
+    if (error || !data) {
+        throw new Error("GitHub token not found for this user.");
+    }
+    
+    return data.access_token;
 }
 
 export async function createAndPushRepo({
