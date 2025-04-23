@@ -1,4 +1,4 @@
-import { createClient } from "@/src/utils/supabase/server";
+import { createClient } from "@/lib/supabase/server";
 import Todo from "./todo";
 import AddTodo from "./add-todo";
 

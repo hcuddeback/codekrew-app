@@ -1,7 +1,7 @@
 "use client";
 
-import { Button } from "@/src/components/ui/button";
-import { deleteCompletedTodos, deleteAllTodos } from "@/src/actions/todos/actions";
+import { Button } from "@/components/ui/button";
+import { deleteCompletedTodos, deleteAllTodos } from "@/actions/todos/actions";
 
 export default function ClearActions() {
   return (

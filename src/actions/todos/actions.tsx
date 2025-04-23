@@ -1,8 +1,8 @@
 "use server";
 
-import { createClient } from "@/src/utils/supabase/server";
+import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
-import { Todo } from "@/src/lib/interface";
+import { Todo } from "@/lib/interface";
 
 export async function addTodo(formData: FormData) {
   const supabase = await createClient();

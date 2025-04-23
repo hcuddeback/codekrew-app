@@ -1,6 +1,5 @@
 import { NextRequest } from "next/server";
-import { createClient } from '@/app/lib/supabase/server';
-import { cookies } from "next/headers";
+import { createClient } from '@/lib/supabase/server';
 
 export async function GET(req: NextRequest) {
     const code = req.nextUrl.searchParams.get('code');
@@ -21,21 +20,9 @@ export async function GET(req: NextRequest) {
     const data = await res.json();
     const accessToken = data.access_token;
 
-    const supabase = createServerClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.SUPABASE_SERVICE_ROLE_KEY!,
-        {       
-            cookies: {
-                get(name: string) {
-                    return cookies().get(name)?.value
-                },
-          }, 
-        }
-    );
-
     const {
         data: { user },
-    } = await supabase.auth.getUser();
+    } = await (await createClient()).auth.getUser();
     
     if (user?.id && accessToken) {
         await supabase

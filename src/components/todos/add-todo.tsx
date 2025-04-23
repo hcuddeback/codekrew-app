@@ -1,9 +1,9 @@
 "use client";
 
 import { useRef } from "react";
-import { Button } from "@/src/components/ui/button";
-import { Input } from "@/src/components/ui/input";
-import { addTodo } from "@/src/actions/todos/actions";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { addTodo } from "@/actions/todos/actions";
 
 export default function AddTodo() {
   const ref = useRef<HTMLFormElement>(null);

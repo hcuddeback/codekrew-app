@@ -1,22 +1,8 @@
-//import FetchDataSteps from "@/components/tutorial/fetch-data-steps";
-import { createClient } from "@/src/utils/supabase/server";
-//import { InfoIcon } from "lucide-react";
-import { redirect } from "next/navigation";
-
-export default async function SettingsPage() {
-  const supabase = await createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    return redirect("/sign-in");
-  }
-  
+export default function SettingsPage() {
   return (
-    <section>
-      <h1 className="text-3xl font-bold mb-2">Settings</h1>
-    </section>
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-4">Settings</h1>
+      <p className="text-slate-600">Your user profile settings will go here.</p>
+    </div>
   );
 }

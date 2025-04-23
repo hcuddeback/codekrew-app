@@ -1,9 +1,9 @@
 import { redirect } from "next/navigation";
-import { createClient } from "@/src/utils/supabase/server";
+import { createClient } from "@/lib/supabase/server";
 
-import Todos from "@/src/components/todos/todos";
-import ClearActions from "@/src/components/todos/clear-actions";
-import SignOutButton from "@/src/components/auth/signout-button";
+import Todos from "@/components/todos/todos";
+import ClearActions from "@/components/todos/clear-actions";
+import SignOutButton from "@/components/auth/signout-button";
 
 
 export default async function Home() {

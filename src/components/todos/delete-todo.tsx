@@ -1,8 +1,8 @@
 "use client";
 
-import { Button } from "@/src/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { IoClose } from "react-icons/io5";
-import { deleteTodo } from "@/src/actions/todos/actions";
+import { deleteTodo } from "@/actions/todos/actions";
 
 export default function DeleteTodo({ id }: { id: number }) {
   return (
