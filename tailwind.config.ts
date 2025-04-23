@@ -1,32 +1,26 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  darkMode: "class",
+  darkMode: "media",
   content: [
-    "./app/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./pages/**/*.{ts,tsx}",
+    "./src/app/**/*.{ts,tsx}",
+    "./src/components/**/*.{ts,tsx}",
+    "./src/pages/**/*.{ts,tsx}",
   ],
   theme: {
     extend: {
       colors: {
-        border: "hsl(var(--border))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        border: "hsl(var(--border))",
+        card: "hsl(var(--card))",
+        cardForeground: "hsl(var(--card-foreground))",
         brand: {
-          indigo: "#3b82f6",  // light blue
-          purple: "#8b5cf6",  // CodeKrew purple
-          orange: "#f97316",  // accent
-          dark: "#0a0a0a",    // used sparingly
-          border: "#e5e7eb", // <-- this matches Tailwind's gray-200
+          indigo: "#3b82f6",
+          purple: "#8b5cf6",
+          orange: "#f97316",
+          dark: "#0a0a0a",
         },
-      },
-      fontFamily: {
-        sans: ["Inter", "sans-serif"],
-      },
-      borderRadius: {
-        xl: "1rem",
-        "2xl": "1.5rem",
       },
     },
   },
